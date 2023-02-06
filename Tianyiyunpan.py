@@ -3,30 +3,8 @@ import requests, time, re, rsa, json, base64, os, sys
 sys.path.append('.')
 requests.packages.urllib3.disable_warnings()
 from urllib import parse
-
-config = {
-    "multi": [
-        {
-            "account": "17156087896",
-            "password": "Qyf9999.",
-        },
-        {
-            "account": "17806275268",
-            "password": "Qyf9999.",
-        },
-        {
-            "account": "15349608709",
-            "password": "Qyf9999.",
-        },
-        # {
-        #     "account": "123",
-        #     "password": "123",
-        #     "push": "pushplus",
-        # },
-    ],
-    "together": False, # 是否合并发送结果, 不写或 True 时合并发送
-    "push": "", # 推送类型, together 为 True 或者不写时必须有, 否则不推送
-}
+from AutoConfig import config
+config_ = config.get("Tianyi")
 
 
 def weChatPush(txt):
@@ -196,7 +174,7 @@ def login(username, password):
     return s
 
 if __name__ == "__main__":
-        multi = config.get("multi")
+        multi = config_
         txt = ''
         
         for i in multi:

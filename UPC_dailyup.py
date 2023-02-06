@@ -3,6 +3,10 @@
 # coding=utf-8
 import requests, time, json, configparser, random, os
 
+from AutoConfig import config
+config_ = config.get("Upcup")
+
+
 # 模拟包头
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
@@ -13,22 +17,21 @@ headers = {
 # 获取当前的时间
 def get_time():
     return time.strftime('%Y%m%d', time.localtime(time.time()))
-
-
-# 帐号密码信息读取
-def getUserInfo():
+def getUserInfo(multi):
     try:
-        usernames = ('Z20070031', )
-        passwords = ('Qyf9999.', )
-        emails = ('1490316377@qq.com', )
-
+        usernames = []
+        passwords = []
+        
+        for i in multi:
+            usernames.append(i["account"])
+            passwords.append(i['password'])
+        
         #print('get userdata success')
-        return list(zip(usernames, passwords, emails))
+        return list(zip(usernames, passwords))
 
     except Exception as e:
         print('get userdata failed\n %s' % e)
         return None
-
 
 
 # 登录并获取old_info
@@ -43,16 +46,6 @@ def login(userdata):
     html_info.encoding = "UTF-8"
     return session, html_info.text
 
-def fwalertPush(title,to,main):
-    # https://fwalert.com/
-    data = {
-            "title": title,
-            "from": to,
-            "main": main,
-            }
-    c = requests.get(url="https://fwalert.com/775a3543-58aa-4e1d-98ad-f2c745e45c25",params=data)
-    print(c.json)
-pass
 
 # 企业号推送
 def weChatPush(txt):
@@ -85,7 +78,7 @@ def save_info(session, info):
 
 
 
-def process(userdata, email_address):
+def process(userdata):
     # 登录返回old_info
     session, html = login(userdata)
     # print(html)
@@ -100,32 +93,16 @@ def process(userdata, email_address):
 
     # 提交信息，对应的接口为save
     save_res = save_info(session, old_info)
-    print(userdata.get("username"))
-    print(str(json.loads(save_res)['m']))
     session.close()
 
-    if email_address:
-        # 结束后发送邮件
-        if json.loads(save_res)['m'] == '操作成功':
-            #send_email("信息填报成功！", "账号：" + userdata.get("username") + "\n结果：" + str(json.loads(save_res)['m']),
-            #           email_address)
-            #if (userdata.get("username") == 'Z20070031'):
-            weChatPush("信息填报成功！\n账号：" + userdata.get("username"))
-            fwalertPush("疫情防控信息填报成功！","疫情防控通","疫情防控信息填报成功")
-        else:
-            #send_email("信息填报失败！可能是已经提交过了！",
-            #           "账号：" + userdata.get("username") + "\n" + str(json.loads(save_res)['m']) + "\n请看今天第一个邮件或手动签到！",
-            #           email_address)
-            #if (userdata.get("username") == 'Z20070031'):
-            weChatPush("信息填报失败！\n账号：" + userdata.get("username") + "\n请看今天第一条信息或手动签到！")
-            fwalertPush("疫情防控信息填报失败！","疫情防控通","请看今天第一条信息或手动签到")
 
 
 
 
 if __name__ == "__main__":
     # 获取用户信息
-    userinfos = getUserInfo()
+    multi = config_
+    userinfos = getUserInfo(multi)
     print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     time.sleep(random.randint(300, 500))
     print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
@@ -135,5 +112,6 @@ if __name__ == "__main__":
             'password': user[1]
         }
 
-        process(user_data, user[2])
+        process(user_data)
 
+    

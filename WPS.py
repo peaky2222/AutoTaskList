@@ -7,9 +7,11 @@ import requests
 import json
 import time
 import random
-wps_sid="wps_sid=V02SecH4GwO7-a9BOK7-INGAA04c1bo00aaefe2000435d4e79"	
-#SCKEY = 'SCU155663T250c7c2cfb1ed174cfd9dfbb93f9edc4601166eb99dec'
-#SCKEY2 = 'SCT10915TrbGLdfzI6Cwuy6HqOTS4JaW1'
+from AutoConfig import config
+config_ = config.get("Wps")
+
+wps_sid=config_.get("wps_sid")
+
 
 # 微信推送
 def weChatPush(txt):

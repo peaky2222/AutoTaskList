@@ -5,39 +5,15 @@ import hashlib
 import requests as req
 from datetime import datetime
 
+from AutoConfig import config
 #import Demjson
 
 # 时光相册签到领空间
 # 登录信息 账户，密码
 # fork in github : https://github.com/ICE99125/everphoto_checkin
 
-# 用户登录信息
-config = {
-    "multi": [
-        {
-            "account": "17156087896",
-            "password": "abc211314",
-            "push": "", # together 为 True 时失效, 不写不推送
-        },
-        {
-            "account": "17806275268",
-            "password": "abc211314",
-            "push": "", # together 为 True 时失效, 不写不推送
-        },
-        {
-            "account": "15349608709",
-            "password": "abc211314",
-            "push": "", # together 为 True 时失效, 不写不推送
-        },
-        # {
-        #     "account": "123",
-        #     "password": "123",
-        #     "push": "pushplus",
-        # },
-    ],
-    "together": False, # 是否合并发送结果, 不写或 True 时合并发送
-    "push": "", # 推送类型, together 为 True 或者不写时必须有, 否则不推送
-}
+# config 用户登录信息
+config_ = config.get("Shiguang")
 
 # 推送信息
 def weChatPush(txt):
@@ -57,37 +33,6 @@ def weChatPush(txt):
             }
     requests.post(url="https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={}".format(access_token),data=json.dumps(data))
     pass
-
-# 返回状态信息
-#if res["status"]: 
-#             return [
-#                 {
-#                     "h4": {
-#                         "content": f"账号: {res['account']}",
-#                     }
-#                 },
-#                 {
-#                     "h4": {
-#                         "content": f"用户名: {res['name']}",
-#                     }
-#                 },
-#                 {
-#                     "txt": {
-#                         "content": res["message"],
-#                     },
-#                     "table": {
-#                         "content": [
-#                             ("描述", "内容"),
-#                             ("今日获得", f"{res['reward']}M"),
-#                             ("明日获得", f"{res['tomorrow']}M"),
-#                             ("总共获得", f"{res['total']}M"),
-#                             ("连续签到", f"{res['continuity']}天"),
-#                             ("注册时间", f"{res['created']}"),
-#                             ("注册天数", f"{res['day']}天"),
-#                         ]
-#                     },
-#                 },
-#             ]
 
 
 
@@ -132,6 +77,8 @@ def handler(fn):
 
     return inner
 
+
+
 # 日期字符串格式化
 def dateTime_format(dt: str) -> str:
     try:
@@ -140,6 +87,7 @@ def dateTime_format(dt: str) -> str:
         return dl.strftime("%Y-%m-%d %H:%M:%S")
     except ValueError as e:
         print(f"格式化日期时出错, 原因: {e}")
+
 
 class Everphoto:
     # 登录地址
@@ -273,9 +221,7 @@ class Everphoto:
             }
 
 def main(*arg):
-    together = config.get("together")
-    type = config.get("push")
-    multi = config.get("multi")
+    multi = config_
     txt = ''
     msg_list = []
     for i in multi:
