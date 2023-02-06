@@ -10,7 +10,7 @@ import random
 from AutoConfig import config
 config_ = config.get("Wps")
 
-wps_sid=config_.get("wps_sid")
+wps_sid=config_[0].get("wps_sid")
 
 
 # 微信推送

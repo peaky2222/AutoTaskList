@@ -7,7 +7,7 @@ url = "https://service.upc.edu.cn/site/apps/launch"
 from AutoConfig import config
 config_ = config.get("Upcout")
 
-payload=config_.get("cookie")
+payload=config_[0].get("cookie")
 
 
 
