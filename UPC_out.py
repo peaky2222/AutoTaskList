@@ -10,9 +10,10 @@ config_ = config.get("Upcout")
 payload=config_[0].get("cookie")
 
 
-
+# fix this + to - to submit this day out
+# because the rules change that from three days ago don't allow out, so change every day.
 today = datetime.datetime.now()
-tomorrow = today + datetime.timedelta(days=1)
+tomorrow = today - datetime.timedelta(days=1)
 r_time = tomorrow.strftime("%Y-%m-%d")
 
 payload = payload.replace("xxxx-xx-xx",r_time)
