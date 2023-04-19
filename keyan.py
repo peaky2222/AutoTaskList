@@ -29,5 +29,5 @@ headers = {
 
 for i in actokens:
     headers['Cookie'] = i
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("GET", url, headers=headers, data=payload)
     print(response.text)
