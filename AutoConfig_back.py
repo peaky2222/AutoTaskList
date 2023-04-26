@@ -1,3 +1,23 @@
+import requests,json
+# 微信推送
+def weChatPush(txt):
+    Secret = "GuaXXXXXXXXXXXXXXXXXXXn8Bs"
+    corpid = 'wXXXXXXXXXXXXXXXXXf54f5b7b'
+    url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'
+    getr = requests.get(url=url.format(corpid, Secret))
+    access_token = getr.json().get('access_token')
+    data = {
+            "touser": "@all",
+            "msgtype": "text",
+            "agentid": 1000003,
+            "text": {
+                "content": "WPS签到领空间\n" + txt
+            },
+            "safe": 0,
+            }
+    requests.post(url="https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={}".format(access_token),data=json.dumps(data))
+pass
+
 config = {
     # 时光相册登录信息
     "Shiguang": [
