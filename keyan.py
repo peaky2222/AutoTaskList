@@ -1,5 +1,7 @@
 import requests
-from AutoConfig import config
+import time
+import random
+from AutoConfig import config,weChatPush
 config_ = config.get("Keyan")
 
 url = "https://www.ablesci.com/user/sign"
@@ -26,7 +28,7 @@ headers = {
   'Connection': 'keep-alive'
 }
 
-
+time.sleep(random.randint(300, 500))
 for i in actokens:
     headers['Cookie'] = i
     response = requests.request("GET", url, headers=headers, data=payload)
