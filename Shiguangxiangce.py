@@ -4,7 +4,7 @@ import json
 import hashlib
 import requests as req
 from datetime import datetime
-
+import time, random
 from AutoConfig import config
 #import Demjson
 
@@ -244,4 +244,5 @@ def main(*arg):
    
 
 if __name__ == '__main__':
+  time.sleep(random.randint(300, 500))  
   main()
