@@ -1,8 +1,8 @@
 # -*- coding: utf8 -*-
 
 # coding=utf-8
-import requests, time, json, configparser, random, os
-
+import requests,  json, configparser,  os
+import time, random
 from AutoConfig import config
 config_ = config.get("Upcup")
 
@@ -49,8 +49,8 @@ def login(userdata):
 
 # 企业号推送
 def weChatPush(txt):
-    Secret = "GuabRMpWYTIeIkk_Dc-sX5LJi59M_7JfCk9KJrtn8Bs"
-    corpid = 'ww41560323f54f5b7b'
+    Secret = "GuabRMpWYTIeIkkXXXXXXXXXX7JfCk9KJrtn8Bs"
+    corpid = 'wwXXXXXXXXXXXX60323f54f5b7b'
     url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'
     getr = requests.get(url=url.format(corpid, Secret))
     access_token = getr.json().get('access_token')
