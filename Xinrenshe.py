@@ -1,6 +1,8 @@
 import requests
 
-from AutoConfig import config
+import time
+import random
+from AutoConfig import config,weChatPush
 config_ = config.get("Xinren")
 
 url = "https://xinrenclub.billowton.com/xrs-2.1.1/wx/sign/doSign"
@@ -23,7 +25,7 @@ headers = {
   'Accept-Language': 'en-us,en',
   'Cookie': 'JSESSIONID=18208F88F946709B0DE2A5AB07D46B0C'
 }
-
+time.sleep(random.randint(300, 500))
 for i in actokens:
     headers['actoken'] = i
     response = requests.request("POST", url, headers=headers, data=payload)
