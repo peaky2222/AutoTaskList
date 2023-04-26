@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 import requests, time, re, rsa, json, base64, os, sys
+import random
 sys.path.append('.')
 requests.packages.urllib3.disable_warnings()
 from urllib import parse
@@ -8,15 +9,15 @@ config_ = config.get("Tianyi")
 
 
 def weChatPush(txt):
-    Secret = "GuabRMpWYTIeIkk_Dc-sX5LJi59M_7JfCk9KJrtn8Bs"
-    corpid = 'ww41560323f54f5b7b'
+    Secret = "GuaXXXXi59M_7JfCk9KJrtn8Bs"
+    corpid = 'wwXXXXXX0323f54f5b7b'
     url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'
     getr = requests.get(url=url.format(corpid, Secret))
     access_token = getr.json().get('access_token')
     data = {
             "touser": "@all",
             "msgtype": "text",
-            "agentid": 1000003,
+            "agentid": 1XXXX03,
             "text": {
                 "content": "天翼云盘签到：\n" + txt
             },
@@ -176,7 +177,7 @@ def login(username, password):
 if __name__ == "__main__":
         multi = config_
         txt = ''
-        
+        time.sleep(random.randint(300, 500))
         for i in multi:
             b = main(i["account"], i['password'])
             txt = txt + b
