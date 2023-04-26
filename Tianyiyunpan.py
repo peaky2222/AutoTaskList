@@ -4,27 +4,10 @@ import random
 sys.path.append('.')
 requests.packages.urllib3.disable_warnings()
 from urllib import parse
-from AutoConfig import config
+from AutoConfig import config,weChatPush
 config_ = config.get("Tianyi")
 
 
-def weChatPush(txt):
-    Secret = "GuaXXXXi59M_7JfCk9KJrtn8Bs"
-    corpid = 'wwXXXXXX0323f54f5b7b'
-    url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'
-    getr = requests.get(url=url.format(corpid, Secret))
-    access_token = getr.json().get('access_token')
-    data = {
-            "touser": "@all",
-            "msgtype": "text",
-            "agentid": 1XXXX03,
-            "text": {
-                "content": "天翼云盘签到：\n" + txt
-            },
-            "safe": 0,
-            }
-    requests.post(url="https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={}".format(access_token),data=json.dumps(data))
-    pass
 
 
 def main(username, password):
