@@ -7,30 +7,10 @@ import requests
 import json
 import time
 import random
-from AutoConfig import config
+from AutoConfig import config,weChatPush
 config_ = config.get("Wps")
 
 wps_sid=config_[0].get("wps_sid")
-
-
-# 微信推送
-def weChatPush(txt):
-    Secret = "GuabRMpWYTIeIkk_Dc-sX5LJi59M_7JfCk9KJrtn8Bs"
-    corpid = 'ww41560323f54f5b7b'
-    url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'
-    getr = requests.get(url=url.format(corpid, Secret))
-    access_token = getr.json().get('access_token')
-    data = {
-            "touser": "@all",
-            "msgtype": "text",
-            "agentid": 1000003,
-            "text": {
-                "content": "WPS签到领空间\n" + txt
-            },
-            "safe": 0,
-            }
-    requests.post(url="https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={}".format(access_token),data=json.dumps(data))
-pass
 
 def wps():
     url="https://vip.wps.cn/sign/v2"
@@ -68,6 +48,7 @@ def wps():
         return "最终签到结果:"+sus
 
 def main():
+    time.sleep(random.randint(300, 500))
     s=wps()
     weChatPush(s)
     print(s)
