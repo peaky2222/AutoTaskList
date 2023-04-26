@@ -1,6 +1,8 @@
 import requests
 
-from AutoConfig import config
+import time
+import random
+from AutoConfig import config,weChatPush
 config_ = config.get("ikuun.eu")
 url = "https://ikuuu.eu/user/checkin"
 actokens = []
@@ -24,7 +26,7 @@ headers = {
   'sec-fetch-site': 'same-origin',
   'Host': 'ikuuu.eu'
 }
-
+time.sleep(random.randint(300, 500))
 for i in actokens:
     headers['cookie'] = i
     response = requests.request("POST", url, headers=headers, data=payload)
