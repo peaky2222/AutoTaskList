@@ -3,7 +3,7 @@
 # coding=utf-8
 import requests,  json, configparser,  os
 import time, random
-from AutoConfig import config
+from AutoConfig import config,weChatPush
 config_ = config.get("Upcup")
 
 
@@ -47,26 +47,6 @@ def login(userdata):
     return session, html_info.text
 
 
-# 企业号推送
-def weChatPush(txt):
-    Secret = "GuabRMpWYTIeIkkXXXXXXXXXX7JfCk9KJrtn8Bs"
-    corpid = 'wwXXXXXXXXXXXX60323f54f5b7b'
-    url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'
-    getr = requests.get(url=url.format(corpid, Secret))
-    access_token = getr.json().get('access_token')
-    data = {
-        "touser": "@all",
-        "msgtype": "text",
-        "agentid": 1000003,
-        "text": {
-            "content": "疫情防控通\n" + txt
-        },
-        "safe": 0,
-    }
-    requests.post(url="https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={}".format(access_token),
-                  data=json.dumps(data))
-
-    pass
 
 
 def save_info(session, info):
