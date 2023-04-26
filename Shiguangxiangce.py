@@ -5,7 +5,7 @@ import hashlib
 import requests as req
 from datetime import datetime
 import time, random
-from AutoConfig import config
+from AutoConfig import config,weChatPush
 #import Demjson
 
 # 时光相册签到领空间
@@ -14,25 +14,6 @@ from AutoConfig import config
 
 # config 用户登录信息
 config_ = config.get("Shiguang")
-
-# 推送信息
-def weChatPush(txt):
-    Secret = "GuabRMpWYTIeIkk_Dc-sX5LJi59M_7JfCk9KJrtn8Bs"
-    corpid = 'ww41560323f54f5b7b'
-    url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'
-    getr = requests.get(url=url.format(corpid, Secret))
-    access_token = getr.json().get('access_token')
-    data = {
-            "touser": "@all",
-            "msgtype": "text",
-            "agentid": 1000003,
-            "text": {
-                "content": "时光相册签到信息：\n\n" + txt
-            },
-            "safe": 0,
-            }
-    requests.post(url="https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={}".format(access_token),data=json.dumps(data))
-    pass
 
 
 
