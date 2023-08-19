@@ -155,4 +155,25 @@ config = {
         #     "push": "pushplus",
         # },
     ],
+    # Miuivercookie
+    "Miuiver": [
+
+        {
+            "cookie": '96903244168XXXXXXXX020175349601211600',
+        },
+        {
+            "cookie": '794b3dfbde6bff961b7317XXXXXXXe96803175349601312132',
+        },
+        {
+            "cookie": '22dcda062b74726686XXXXXXXX2175349601411458',
+        },
+        {
+            "cookie": '74c2f5c1609f1525XXXXXXXX5547174867935911449',
+        },
+        # {
+        #     "account": "123",
+        #     "password": "123",
+        #     "push": "pushplus",
+        # },
+    ],
 }
