@@ -32,8 +32,8 @@ headers = {
   'Content-Length': '18'
 }
 
-time.sleep(random.randint(300, 500))
+#time.sleep(random.randint(300, 500))
 for i in actokens:
     headers['Cookie'] = i
-    response = requests.request("Post", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload)
     print(response.text)
